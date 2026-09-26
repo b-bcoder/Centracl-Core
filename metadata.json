@@ -1,0 +1,12 @@
+{
+  "name": "Remix: Super App Launcher 2",
+  "description": "A centralized hub for Games and Tools.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

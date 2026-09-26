@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-blue: #00f2ff;
+  --color-cyber-pink: #ff00ea;
+  --color-cyber-dark: #0a0a0f;
+  --color-cyber-grid: rgba(0, 242, 255, 0.05);
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: var(--color-cyber-dark);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0a0a0f 100%),
+    linear-gradient(var(--color-cyber-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-cyber-grid) 1px, transparent 1px);
+  background-size: 100% 100%, 30px 30px, 30px 30px;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 242, 255, 0.1);
+  box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.neon-border {
+  border: 1px solid var(--color-cyber-blue);
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+}
+
+.neon-text {
+  text-shadow: 0 0 10px var(--color-cyber-blue);
+}
