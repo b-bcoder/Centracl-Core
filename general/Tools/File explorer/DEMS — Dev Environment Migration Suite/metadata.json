@@ -1,0 +1,5 @@
+{
+  "name": "DEMS — Dev Environment Migration Suite",
+  "description": "Een eenvoudige tool om robocopy-commando's te genereren voor enkelvoudige of batch-verwerking.",
+  "requestFramePermissions": []
+}

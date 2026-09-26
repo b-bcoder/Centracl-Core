@@ -1,0 +1,50 @@
+/*
+  Datum & Wat-Als Calculator Global Styles
+  ---------------------------------------
+  Dit bestand wordt geladen via index.html.
+  Zelfs zonder dit bestand werkt de app dankzij de Tailwind CDN,
+  maar we gebruiken dit voor globale resets en extra styling.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Custom scrollbar voor een technische look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Chrome/Safari fixes voor date inputs */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+}
+
+.dark input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}

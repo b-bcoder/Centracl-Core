@@ -1,0 +1,6 @@
+{
+  "name": "Account Manager",
+  "description": "A secure and organized way to store, manage, and export accounts with master password protection and encrypted storage.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

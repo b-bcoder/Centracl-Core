@@ -1,0 +1,5 @@
+{
+  "name": "Bestandsoverdracht Verificatie",
+  "description": "Controleer of alle bestanden correct zijn gekopieerd door paden uit bron- en doelmappen te vergelijken.",
+  "requestFramePermissions": []
+}

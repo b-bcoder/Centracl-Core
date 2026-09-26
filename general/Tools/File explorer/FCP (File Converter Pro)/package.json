@@ -1,0 +1,95 @@
+{
+  "name": "bestandsconverter",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "main": "electron-main.cjs",
+  "description": "Offline bestandsconverter voor afbeeldingen, audio, video en PDF.",
+  "author": "B&B Coder",
+  "copyright": "Copyright © 2026 - B&B Coder",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"electron .\"",
+    "build": "vite build",
+    "dist": "npm run build && electron-builder",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
+    "@node-rs/argon2": "^2.2.0",
+    "@types/three": "^0.186.0",
+    "@zip.js/zip.js": "^2.8.60",
+    "concurrently": "^10.0.5",
+    "ffmpeg": "^1.1.3",
+    "ffmpeg-static": "^5.3.0",
+    "fluent-ffmpeg": "^2.1.3",
+    "glob": "^13.0.6",
+    "imagetracerjs": "^1.2.6",
+    "jspdf": "^4.2.1",
+    "openskp": "^1.3.0",
+    "pdfjs-dist": "^6.2.108",
+    "react": "^19.2.8",
+    "react-dom": "^19.1.1",
+    "sharp": "^0.35.4",
+    "three": "^0.186.0",
+    "whisper-node": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.5.4",
+    "concurrently": "^10.0.5",
+    "electron": "^44.0.0",
+    "electron-builder": "^26.15.3",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~5.8.2",
+    "vite": "^6.4.3"
+  },
+  "build": {
+    "appId": "com.fcp.fileconverter",
+    "productName": "File Converter Pro",
+    "copyright": "Copyright © 2026 B&B Coder",
+    "files": [
+      "dist/**/*",
+      "electron-main.cjs",
+      "preload.js",
+      "package.json",
+      "assets/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**/*",
+      "node_modules/whisper-node/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "whisper-runtime",
+        "to": "whisper-runtime",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "deleteAppDataOnUninstall": true
+    }
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true,
+    "electron-winstaller@5.4.0": true,
+    "core-js@3.50.0": true,
+    "ffmpeg-static@5.3.0": true
+  }
+}
