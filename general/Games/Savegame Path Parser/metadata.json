@@ -1,0 +1,5 @@
+{
+  "name": "Savegame Path Parser",
+  "description": "A specialized tool to extract and structure metadata from Windows file paths, specifically designed for savegame files with embedded timestamps.",
+  "requestFramePermissions": []
+}

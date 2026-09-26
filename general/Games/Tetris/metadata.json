@@ -1,0 +1,6 @@
+{
+  "name": "React Tetris",
+  "description": "A fully functional, visually appealing Tetris game built in React and TypeScript. Control the falling blocks, clear lines, and aim for a high score in this classic arcade puzzle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

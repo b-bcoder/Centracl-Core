@@ -1,0 +1,6 @@
+{
+  "name": "React Sudoku",
+  "description": "Een Sudoku-puzzelapp met meerdere moeilijkheidsgraden en een drie-foutensysteem. Daag jezelf uit van Beginner tot Hardcore++!",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
