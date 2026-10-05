@@ -78,10 +78,40 @@ export const translations = {
     en: "SVG Engine", nl: "SVG-engine", tr: "SVG Motoru", zh: "SVG 引擎", ja: "SVGエンジン", fr: "Moteur SVG", de: "SVG-Engine",
   },
   wallpaper_notice: {
-    en: "For the best result, use a background image with the same aspect ratio as your screen. Otherwise, the image may be stretched.", nl: "Gebruik voor het beste resultaat een achtergrondafbeelding met dezelfde beeldverhouding als uw scherm. Anders kan de afbeelding uitrekken.", tr: "En iyi sonuç için ekranınızla aynı en-boy oranına sahip bir arka plan resmi kullanın. Aksi halde görüntü esneyebilir.", zh: "为获得最佳效果，请使用与屏幕宽高比相同的背景图片，否则图片可能会被拉伸。", ja: "最適な結果を得るには、画面と同じアスペクト比の背景画像を使用してください。それ以外の場合、画像が引き伸ばされることがあります。", fr: "Pour un meilleur résultat, utilisez une image d’arrière-plan avec le même rapport d’aspect que votre écran. Sinon, l’image risque d’être étirée.", de: "Für ein optimales Ergebnis sollte das Hintergrundbild dasselbe Seitenverhältnis wie Ihr Bildschirm haben. Andernfalls kann das Bild gestreckt werden.",
+    en: "Images are scaled to fill the screen. MP4 and WebM videos play muted and loop in the background.",
+    nl: "Afbeeldingen worden passend geschaald. MP4- en WebM-video's worden gedempt en herhaald op de achtergrond afgespeeld.",
+    tr: "Görüntüler ekranı kaplayacak şekilde ölçeklenir. MP4 ve WebM videoları arka planda sessiz ve döngü halinde oynatılır.",
+    zh: "图片会缩放以填满屏幕。MP4 和 WebM 视频将在后台静音循环播放。",
+    ja: "画像は画面に合わせて拡大縮小されます。MP4 および WebM 動画はバックグラウンドでミュート再生され、繰り返されます。",
+    fr: "Les images sont mises à l’échelle pour remplir l’écran. Les vidéos MP4 et WebM sont lues en boucle et sans son en arrière-plan.",
+    de: "Bilder werden bildschirmfüllend skaliert. MP4- und WebM-Videos werden im Hintergrund stumm und in einer Schleife abgespielt.",
   },
   drop_files_here: {
     en: "Drag & drop your files or folders here", nl: "Sleep uw bestanden of mappen hierheen", tr: "Dosyalarınızı veya klasörlerinizi buraya sürükleyip bırakın", zh: "将您的文件或文件夹拖放到此处", ja: "ファイルまたはフォルダーをここにドラッグ＆ドロップしてください", fr: "Glissez-déposez vos fichiers ou dossiers ici", de: "Ziehen Sie Ihre Dateien oder Ordner hierher",
+  },
+  drop_to_convert: {
+    en: "Drop here to convert to", nl: "Sleep hierheen om te converteren naar", tr: "Şuna dönüştürmek için buraya bırakın", zh: "拖放到此处以转换为", ja: "ここにドロップして変換", fr: "Déposez ici pour convertir en", de: "Hier ablegen, um zu konvertieren nach",
+  },
+  conversion_category_image: {
+    en: "Image conversion", nl: "Afbeeldingconversie", tr: "Görsel dönüştürme", zh: "图像转换", ja: "画像変換", fr: "Conversion d’image", de: "Bildkonvertierung",
+  },
+  conversion_category_video: {
+    en: "Video conversion", nl: "Videoconversie", tr: "Video dönüştürme", zh: "视频转换", ja: "動画変換", fr: "Conversion vidéo", de: "Videokonvertierung",
+  },
+  conversion_category_audio: {
+    en: "Audio conversion", nl: "Audioconversie", tr: "Ses dönüştürme", zh: "音频转换", ja: "音声変換", fr: "Conversion audio", de: "Audiokonvertierung",
+  },
+  conversion_category_pdf: {
+    en: "PDF conversion", nl: "PDF-conversie", tr: "PDF dönüştürme", zh: "PDF 转换", ja: "PDF変換", fr: "Conversion PDF", de: "PDF-Konvertierung",
+  },
+  conversion_category_office: {
+    en: "Document conversion", nl: "Documentconversie", tr: "Belge dönüştürme", zh: "文档转换", ja: "ドキュメント変換", fr: "Conversion de documents", de: "Dokumentkonvertierung",
+  },
+  conversion_category_archive: {
+    en: "Archive extraction", nl: "Archief uitpakken", tr: "Arşivden çıkarma", zh: "解压存档", ja: "アーカイブの展開", fr: "Extraction d’archive", de: "Archiv entpacken",
+  },
+  conversion_category_model: {
+    en: "3D model conversion", nl: "3D-modelconversie", tr: "3D model dönüştürme", zh: "3D 模型转换", ja: "3Dモデル変換", fr: "Conversion de modèles 3D", de: "3D-Modellkonvertierung",
   },
   or: {
     en: "or", nl: "of", tr: "veya", zh: "或者", ja: "または", fr: "ou", de: "oder",
@@ -238,6 +268,15 @@ export const translations = {
   },
   converting: {
     en: "Converting", nl: "Converteren", tr: "Dönüştürülüyor", zh: "转换中", ja: "変換中", fr: "Conversion", de: "Konvertiere",
+  },
+  document_ready: {
+    en: "Document ready to download", nl: "Document klaar om te downloaden", tr: "Belge indirilmeye hazır", zh: "文档已准备好下载", ja: "ドキュメントをダウンロードできます", fr: "Document prêt à télécharger", de: "Dokument kann heruntergeladen werden",
+  },
+  extract_archive: {
+    en: "Extract archive", nl: "Archief uitpakken", tr: "Arşivi çıkar", zh: "解压存档", ja: "アーカイブを展開", fr: "Extraire l'archive", de: "Archiv entpacken",
+  },
+  archive_extracted_to: {
+    en: "Extracted to", nl: "Uitgepakt naar", tr: "Şuraya çıkarıldı", zh: "已解压到", ja: "解凍先", fr: "Extrait vers", de: "Entpackt nach",
   },
   preview_not_supported: {
     en: "preview not supported.", nl: "preview niet ondersteund.", tr: "önizleme desteklenmiyor.", zh: "不支持预览。", ja: "プレビューはサポートされていません。", fr: "aperçu non pris en charge.", de: "Vorschau nicht unterstützt.",

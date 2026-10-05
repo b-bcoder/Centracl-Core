@@ -21,6 +21,11 @@ export enum ConversionTarget {
   // Document formats
   TXT = 'TXT',
   SRT = 'SRT',
+  HTML = 'HTML',
+  CSV = 'CSV',
+  JSON = 'JSON',
+  // Archive actions
+  EXTRACT = 'EXTRACT',
   // 3D model formats
   STL = 'STL',
   OBJ = 'OBJ',
@@ -40,6 +45,7 @@ export interface ConversionFile {
   progress: number;
   etaSeconds?: number | null;
   convertedFileUrl: string | null;
+  outputPath?: string;
   error: string | null;
   relativePath?: string;
 }
