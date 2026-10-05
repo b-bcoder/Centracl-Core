@@ -30,5 +30,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getWallpaper: () => ipcRenderer.invoke('fcp:get-wallpaper'),
   chooseWallpaper: () => ipcRenderer.invoke('fcp:choose-wallpaper'),
   disableWallpaper: () => ipcRenderer.invoke('fcp:disable-wallpaper'),
+  getOnboardingComplete: () => ipcRenderer.invoke('fcp:get-onboarding-complete'),
+  setOnboardingComplete: () => ipcRenderer.invoke('fcp:set-onboarding-complete'),
   getVaultStatus: () => ipcRenderer.invoke('fcp:get-vault-status')
 });

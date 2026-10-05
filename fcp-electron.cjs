@@ -10,6 +10,7 @@ const ffmpegPath = require('ffmpeg-static');
 let activeConversion;
 const stagedDirectory = path.join(app.getPath('temp'), 'central-core-fcp-staging');
 const wallpaperConfigPath = path.join(app.getPath('userData'), 'wallpaper.json');
+const onboardingCompletePath = path.join(app.getPath('userData'), 'fcp-onboarding-complete');
 
 function whisperRuntimeDirectory() {
   return app.isPackaged
@@ -99,10 +100,24 @@ async function convertMedia(event, fileData, fileName, targetFormat) {
     const imageResult = await convertImage(inputPath, targetFormat);
     if (imageResult) {
       event.sender.send('fcp:media-progress', { fileName, progress: 100, etaSeconds: 0 });
-      return imageResult;
+      return Uint8Array.from(imageResult);
     }
 
-    const extension = String(targetFormat).toLowerCase();
+    const format = String(targetFormat).toUpperCase();
+    const ffmpegOptions = {
+      MP4: ['-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'libx264', '-preset', 'medium', '-crf', '23', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart'],
+      WEBM: ['-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'libvpx-vp9', '-crf', '32', '-b:v', '0', '-c:a', 'libopus'],
+      WMV: ['-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'wmv2', '-c:a', 'wmav2'],
+      MKV: ['-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'libx264', '-preset', 'medium', '-crf', '23', '-c:a', 'aac', '-b:a', '192k'],
+      MP3: ['-map', '0:a:0?', '-vn', '-c:a', 'libmp3lame', '-q:a', '2'],
+      WAV: ['-map', '0:a:0?', '-vn', '-c:a', 'pcm_s16le'],
+      FLAC: ['-map', '0:a:0?', '-vn', '-c:a', 'flac'],
+      OGG: ['-map', '0:a:0?', '-vn', '-c:a', 'libvorbis', '-q:a', '5'],
+    };
+    const options = ffmpegOptions[format];
+    if (!options) throw new Error(`Unsupported media output format: ${format}.`);
+
+    const extension = format.toLowerCase();
     const directory = path.join(os.tmpdir(), 'central-core-fcp', crypto.randomUUID());
     await fs.mkdir(directory, { recursive: true });
     const outputPath = path.join(directory, `output.${extension}`);
@@ -110,10 +125,10 @@ async function convertMedia(event, fileData, fileName, targetFormat) {
     try {
       await runFfmpeg(event, [
         '-hide_banner', '-y', '-i', inputPath,
-        '-progress', 'pipe:1', '-nostats', outputPath
+        ...options, '-progress', 'pipe:1', '-nostats', outputPath
       ], 0, fileName);
       event.sender.send('fcp:media-progress', { fileName, progress: 100, etaSeconds: 0 });
-      return await fs.readFile(outputPath);
+      return Uint8Array.from(await fs.readFile(outputPath));
     } finally {
       await fs.rm(directory, { recursive: true, force: true });
     }
@@ -127,13 +142,23 @@ function imageDataUrl(filePath, data) {
 }
 
 async function readWallpaper() {
+  let config;
   try {
-    const config = JSON.parse(await fs.readFile(wallpaperConfigPath, 'utf8'));
-    const data = await fs.readFile(config.path);
-    return { enabled: true, path: config.path, dataUrl: imageDataUrl(config.path, data) };
-  } catch {
-    return { enabled: false, path: null, dataUrl: null };
+    config = JSON.parse(await fs.readFile(wallpaperConfigPath, 'utf8'));
+  } catch (error) {
+    if (error.code === 'ENOENT') return { enabled: false, path: null, dataUrl: null, mediaType: null, url: null };
+    throw error;
   }
+
+  const extension = path.extname(config.path).toLowerCase();
+  if (['.mp4', '.webm'].includes(extension)) {
+    const data = await fs.readFile(config.path);
+    const mimeType = extension === '.webm' ? 'video/webm' : 'video/mp4';
+    return { enabled: true, path: config.path, dataUrl: null, mediaType: 'video', mimeType, data: Uint8Array.from(data) };
+  }
+
+  const data = await fs.readFile(config.path);
+  return { enabled: true, path: config.path, dataUrl: imageDataUrl(config.path, data), mediaType: 'image', url: null };
 }
 
 function runWhisper(event, executablePath, args, options) {
@@ -186,7 +211,10 @@ function registerFcpIpc() {
   ipcMain.handle('fcp:choose-wallpaper', async () => {
     const result = await dialog.showOpenDialog({
       properties: ['openFile'],
-      filters: [{ name: 'Afbeeldingen', extensions: ['png', 'jpg', 'jpeg', 'webp', 'bmp'] }]
+      filters: [
+        { name: 'Afbeeldingen', extensions: ['png', 'jpg', 'jpeg', 'webp', 'bmp'] },
+        { name: 'Video-achtergronden', extensions: ['mp4', 'webm'] },
+      ]
     });
     if (result.canceled || !result.filePaths[0]) return readWallpaper();
     await fs.mkdir(app.getPath('userData'), { recursive: true });
@@ -195,6 +223,20 @@ function registerFcpIpc() {
     await fs.copyFile(selectedPath, storedPath);
     await fs.writeFile(wallpaperConfigPath, JSON.stringify({ path: storedPath }), 'utf8');
     return readWallpaper();
+  });
+  ipcMain.handle('fcp:get-onboarding-complete', async () => {
+    try {
+      await fs.access(onboardingCompletePath);
+      return true;
+    } catch (error) {
+      if (error.code === 'ENOENT') return false;
+      throw error;
+    }
+  });
+  ipcMain.handle('fcp:set-onboarding-complete', async () => {
+    await fs.mkdir(app.getPath('userData'), { recursive: true });
+    await fs.writeFile(onboardingCompletePath, 'true', 'utf8');
+    return true;
   });
   ipcMain.handle('fcp:disable-wallpaper', async () => {
     await fs.rm(wallpaperConfigPath, { force: true });
